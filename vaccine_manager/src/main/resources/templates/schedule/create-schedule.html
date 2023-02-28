@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+				layout:decorate="~{mainLayout.html}">
+
+<head>
+   
+</head>
+
+<body>
+
+   
+            <div class="content" layout:fragment="content">
+                <div class="title">
+                    <h1>WELCOME TO VACCINE MANAGEMENT SYSTEM</h1>
+                </div>
+                <div class="white-bar">
+                    <div>
+                        <form id="add-form" th:action="@{/injection-schedule/new}" th:object="${scheduleDto}" method="POST">
+                            <div class="row my-3">
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">Vaccine:</label>
+                                  <select th:field="*{vaccineName}" id="inputState" class="form-control">
+                                    <option value="" selected>-Select Vaccine</option>
+                                    <option th:each="vc : ${vaccines}"
+                                      th:value="${vc.vaccineName}" th:text="${vc.vaccineName}"></option>
+                                  </select>
+                                  <p th:if="${#fields.hasErrors('vaccineName')}" th:errorclass="error" th:errors="*{vaccineName}" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                      <label for="inputCity">Form:</label>
+                                      <input th:field="*{startDate}" type="date" class="form-control" id="inputCity">
+                                      <p th:if="${#fields.hasErrors('startDate')}" th:errorclass="error" th:errors="*{startDate}" />
+                                </div>
+                                
+                                <div class="form-group col-md-3">
+                                      <label for="inputCity">To:</label>
+                                      <input th:field="*{endDate}" type="date" class="form-control" id="inputCity">
+                                       <p th:if="${#fields.hasErrors('endDate')}" th:errorclass="error" th:errors="*{endDate}" />
+                                 </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="form-group col-md-3">
+                                        <label for="exampleFormControlTextarea1">Place:</label>
+                                        <textarea th:field="*{place}" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <p th:if="${#fields.hasErrors('place')}" th:errorclass="error" th:errors="*{place}" />
+                                        
+                                  </div>
+                                
+                                 <div class="form-group col-md-6">
+                                        <label for="exampleFormControlTextarea1">Note:</label>
+                                        <textarea th:field="*{description}" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <p th:if="${#fields.hasErrors('description')}" th:errorclass="error" th:errors="*{description}" />
+                                  </div>
+                            
+                            </div>
+                            
+                            <div>
+                                <button type="submit" class="btn btn-primary" id="liveToastBtn">Save</button>
+                                <a th:href="@{/injection-schedule/new}"><button type="button" class="btn btn-primary">Reset</button></a>
+                                <a th:href="@{/injection-schedule/list}"><button type="button" class="btn btn-primary">Cancel</button></a>
+                            </div>
+                        </form>
+                    </div>
+                        
+    
+                </div>
+            </div>
+
+       
+</body>
+
+</html>

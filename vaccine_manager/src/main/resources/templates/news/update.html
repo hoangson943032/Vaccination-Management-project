@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+				layout:decorate="~{mainLayout.html}">
+
+<head>
+</head>
+
+<body>
+
+    
+            <div class="content" layout:fragment="content">
+                <div class="title">
+                    <h1>WELCOME TO VACCINE MANAGEMENT SYSTEM</h1>
+                </div>
+                <div class="white-bar">
+
+                    <div>
+                       <form id="add-form" th:action="@{/news/update-news/(id=${id})}" th:object="${newsDto}" method="POST">
+
+					<div class="row my-3">
+						<div class="form-group col-md-3">
+							<label for="numberOfInjecttion">Title:</label> 
+							<input th:field="*{title}" type="text" class="form-control" id="title">
+						</div>
+						
+						<div class="form-group">
+							<label for="exampleFormControlTextarea1">Preview:</label>
+							<textarea th:field="*{preview}" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+						</div>
+						
+						<div class="form-group">
+							<label for="exampleFormControlTextarea1">Content:</label>
+							<textarea th:field="*{content}" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+						</div>
+						
+					</div>
+
+					<div>
+						<button type="submit" class="btn btn-primary" id="liveToastBtn">Save</button>
+						<a th:href="@{/news/update-news/(id=${id}, reset=${true})}"><button type="button" class="btn btn-primary">Reset</button></a>
+						<a th:href="@{/news/list-news}"><button type="button" class="btn btn-primary">Cancel</button></a>
+					</div>
+				</form>
+                    </div>
+                    
+                 
+                        
+    
+                </div>
+            </div>
+</body>
+
+</html>

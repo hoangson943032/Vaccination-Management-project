@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+				layout:decorate="~{mainLayout.html}">
+<head>
+   
+</head>
+
+<body>
+
+   
+            <div class="content" layout:fragment="content">
+                <div class="title">
+                    <h1>WELCOME TO VACCINE MANAGEMENT SYSTEM</h1>
+                </div>
+                <div class="white-bar">
+                    <div>
+                        <form th:action="@{/vaccine-type/new}" th:object="${vaccineTypeDTO}" method="POST">
+                            <div class="row my-3">
+                                <div class="form-group col-md-4">
+                                      <label for="vaccineId">Vaccine Type Code:</label>
+                                      <input th:field="*{vaccineTypeId}" type="text" class="form-control" id="vaccineTypeId">
+                                      <p th:if="${#fields.hasErrors('vaccineTypeId')}" th:errorclass="error" th:errors="*{vaccineTypeId}" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                      <label for="vaccineName">Vaccine type name:</label>
+                                      <input th:field="*{vaccineTypeName}" type="text" class="form-control" id="vaccineTypeName">
+                                      <p th:if="${#fields.hasErrors('vaccineTypeName')}" th:errorclass="error" th:errors="*{vaccineTypeName}" />
+                                </div>
+                                <div class="col-md-4 d-flex flex-column align-content-center">
+                                	
+                                    	
+                                    	<div>
+                                    		<label  for="gridCheck">
+									        Active:
+									  		</label>
+                                    	</div>
+                                    	<div class="mx-5">
+                                    		<input type="checkbox" id="gridCheck" checked  disabled>
+                                    	</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row my-3">
+                            
+                            	<div class="form-group col-md-12">
+                                        <label for="usage">Description:</label>
+                                        <textarea th:field="*{Description}" class="form-control" id="Description" rows="3"></textarea>
+                                        <p th:if="${#fields.hasErrors('Description')}" th:errorclass="error" th:errors="*{Description}" />
+                                </div>
+                            
+                               
+                            </div>
+                            
+                           
+                            
+                            
+                            
+                            
+                            <div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <a th:href="@{/vaccine-type/new}"><button type="button" class="btn btn-primary">Reset</button></a>
+                                <a th:href="@{/vaccine-type/list}"><button type="button" class="btn btn-primary">Cancel</button></a>
+                            </div>
+                            
+                        
+                            
+                        </form>
+                    </div>
+                        
+    
+                </div>
+            </div>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+				layout:decorate="~{mainLayout.html}">
+
+<head>
+</head>
+
+<body>
+
+    
+            <div class="content" layout:fragment="content">
+                <div class="title">
+                    <h1>WELCOME TO VACCINE MANAGEMENT SYSTEM</h1>
+                </div>
+                <div class="white-bar">
+
+                    <div>
+                        <form th:action="@{/vaccine-manager/update/(id=${id})}" th:object="${vaccineDTO}" method="POST">
+                            <div class="row my-3">
+                                <div class="form-group col-md-8">
+                                      <label for="vaccineId">Vaccine id:</label>
+                                      <input th:field="*{vaccineId}" type="text" class="form-control" id="vaccineId" readonly>
+                                </div>
+                                <div class="col-md-4 d-flex flex-column align-content-center">
+                                	
+                                    	
+                                    	<div>
+                                    		<label  for="gridCheck">
+									        Active:
+									  		</label>
+                                    	</div>
+                                    	<div class="mx-5">
+                                    		<input th:field="*{status}" type="checkbox" id="gridCheck">
+                                    	</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row my-3">
+                            
+                                <div class="form-group col-md-4">
+                                      <label for="vaccineName">Vaccine name:</label>
+                                      <input th:field="*{vaccineName}" type="text" class="form-control" id="vaccineName">
+                                       <p th:if="${#fields.hasErrors('vaccineName')}" th:errorclass="error" th:errors="*{vaccineName}" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                  <label for="inputState">Vaccine Type:</label>
+                                  <select th:field="*{vaccineTypeName}" id="inputState" class="form-control">
+                                    <option value="" selected>-Select Vaccine type--</option>
+                                    <option th:each="vcType : ${vaccineTypes}"
+                                      th:value="${vcType.vaccineTypeName}" th:text="${vcType.vaccineTypeName}"></option>
+                                  </select>
+                                   <p th:if="${#fields.hasErrors('vaccineTypeName')}" th:errorclass="error" th:errors="*{vaccineTypeName}" />
+                                </div>
+                                
+                                <div class="form-group col-md-4">
+                                      <label for="numberOfInjecttion">Number Of Injecttion:</label>
+                                      <input th:field="*{numberOfInjecttion}" type="number" class="form-control" id="numberOfInjecttion">
+                                       <p th:if="${#fields.hasErrors('numberOfInjecttion')}" th:errorclass="error" th:errors="*{numberOfInjecttion}" />
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="row my-3">
+                            	<div class="form-group col-md-4">
+                                        <label for="usage">Usage:</label>
+                                        <textarea th:field="*{usage}" class="form-control" id="usage" rows="3"></textarea>
+                                         <p th:if="${#fields.hasErrors('usage')}" th:errorclass="error" th:errors="*{usage}" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                        <label for="indication">Indication:</label>
+                                        <textarea th:field="*{indication}" class="form-control" id="indication" rows="3"></textarea>
+                                          <p th:if="${#fields.hasErrors('indication')}" th:errorclass="error" th:errors="*{indication}" />
+                                </div>
+                                
+                                <div class="form-group col-md-4">
+                                        <label for="contraindication">Contraindication:</label>
+                                        <textarea th:field="*{contraindication}" class="form-control" id="contraindication" rows="3"></textarea>
+                                         <p th:if="${#fields.hasErrors('contraindication')}" th:errorclass="error" th:errors="*{contraindication}" />
+                                </div>
+                            </div>
+                            
+                             <div class="row my-3">
+                             	<div class="form-group col-md-4">
+                                      <label for="timeBeginNextInjection">Time of begin next injection:</label>
+                                      <input th:field="*{timeBeginNextInjection}" type="date" class="form-control" id="timeBeginNextInjection">
+                                       <p th:if="${#fields.hasErrors('timeBeginNextInjection')}" th:errorclass="error" th:errors="*{timeBeginNextInjection}" />
+                                </div>
+                                
+                                <div class="form-group col-md-4">
+                                      <label for="timeEndNextInjection">Time of ending next Injection:</label>
+                                      <input th:field="*{timeEndNextInjection}" type="date" class="form-control" id="timeEndNextInjection">
+                                       <p th:if="${#fields.hasErrors('timeEndNextInjection')}" th:errorclass="error" th:errors="*{timeEndNextInjection}" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                      <label for="origin">Origin:</label>
+                                      <input th:field="*{origin}" type="text" class="form-control" id="origin">
+                                       <p th:if="${#fields.hasErrors('origin')}" th:errorclass="error" th:errors="*{origin}" />
+                                </div>
+                             </div>
+                            
+                            
+                            <div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <a th:href="@{/vaccine-manager/update/(id=${id}, reset=${true})}"><button type="button" class="btn btn-primary">Reset</button></a>
+                                <a th:href="@{/vaccine-manager/list}"><button type="button" class="btn btn-primary">Cancel</button></a>
+                            </div>
+                            
+                        
+                            
+                        </form>
+                    </div>
+                    
+                 
+                        
+    
+                </div>
+            </div>
+</body>
+
+</html>

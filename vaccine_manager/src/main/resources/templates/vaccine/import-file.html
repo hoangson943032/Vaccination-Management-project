@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+				layout:decorate="~{mainLayout.html}">
+<head>
+   
+</head>
+
+<body>
+
+   
+            <div class="content" layout:fragment="content">
+                <div class="title">
+                    <h1>WELCOME TO VACCINE MANAGEMENT SYSTEM</h1>
+                </div>
+                <div class="white-bar">
+                    <form th:action="@{/vaccine-manager/import}" method="post" enctype="multipart/form-data">
+					    <input class="form-control" type="file" th:name="file" />
+					    <input class="btn btn-primary mb-3" th:type="submit" value="Import" />
+					</form>
+				</div>
+</body>
+
+</html>

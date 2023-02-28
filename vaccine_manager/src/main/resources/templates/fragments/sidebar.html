@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+	</head>
+	<body>
+		<div th:fragment="sidebar">
+			<div class="sidebar">
+                <div class="banner">
+                    <img src="/img/user-img.png" height="70px" alt="">
+                    <div sec:authorize="hasAuthority('ADMIN')" id="user-name"><div th:text="${#authentication.principal.userName}"></div></div>
+                    <a sec:authorize="hasAuthority('CUSTOMER')" th:href="@{/customer/update/(id=${#authentication.principal.id})}"><div id="user-name"><div th:text="${#authentication.principal.userName}"></div></div></a>
+                    <div id="email"><div th:text="${#authentication.principal.email}"></div></div>
+                </div>
+
+                <div class="sidebar-content">
+                    <div class="home"> <a th:href="@{/home}">HOME</a></div>
+                    <button sec:authorize="hasAuthority('ADMIN')" type="button" class="dropdown-btn">Employee management<i class="fa-solid fa-plus"></i></button>
+                    <div  class="dropdown-container">
+                        <a th:href="@{/employee/list}">- Employee List</a>
+                        <a th:href="@{/employee/new}">- Create Employee</a>
+                    </div>
+                
+
+                    <button  sec:authorize="hasAuthority('ADMIN')" type="button" class="dropdown-btn">Customer management<i class="fa-solid fa-plus"></i></button>
+                    <div class="dropdown-container">
+                        <a th:href="@{/customer/list}">- Customer List</a>
+                        <a th:href="@{/customer/new}">- Create Customer</a>
+                    </div>
+
+                    <button type="button" class="dropdown-btn">Vaccine Type management<i class="fa-solid fa-plus"></i></button>
+                    <div class="dropdown-container">
+                        <a th:href="@{/vaccine-type/list}">- Vaccine Type List</a>
+                        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/vaccine-type/new}">- Create Vaccine Type</a>
+                    </div>
+
+                    <button type="button" class="dropdown-btn">Vaccine management<i class="fa-solid fa-plus"></i></button>
+                    <div class="dropdown-container">
+                        <a th:href="@{/vaccine-manager/list}">- Vaccine List</a>
+                        <a  sec:authorize="hasAuthority('ADMIN')" th:href="@{/vaccine-manager/new}">- Create Vaccine</a>
+                    </div>
+
+                    <button type="button" class="dropdown-btn">Injection Schedule<i class="fa-solid fa-plus"></i></button>
+                    <div class="dropdown-container">
+                        <a th:href="@{/injection-schedule/list}">- Injection Schedule List</a>
+                        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/injection-schedule/new}">- Create Injection Schedule</a>
+                    </div>
+
+                    <!-- <button type="button" class="dropdown-btn">Injection Result<i class="fa-solid fa-plus"></i></button>
+                    <div class="dropdown-container">
+                        <a  href="#">- Injection Result List</a>
+                        <a  href="#">- Create Injection Result</a>
+                    </div> -->
+
+                    <button type="button" class="dropdown-btn">News<i class="fa-solid fa-plus"></i></button>
+                    <div class="dropdown-container">
+                        <a th:href="@{/news/list-news}">- News List</a>
+                        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/news/create-news}">- Create News</a>
+                    </div>
+
+                    <!-- <button type="button" class="dropdown-btn">Report<i class="fa-solid fa-plus"></i></button>
+                    <div class="dropdown-container">
+
+                    </div> -->
+                </div>
+            </div>
+		</div>
+	</body>
+</html>

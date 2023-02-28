@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+				layout:decorate="~{mainLayout.html}">
+
+<head>
+
+</head>
+
+<body>
+
+	
+			<div class="content" layout:fragment="content">
+				<div class="title">
+					<h1>WELCOME TO VACCINE MANAGEMENT SYSTEM</h1>
+				</div>
+				<div class="white-bar">
+					<div class="d-flex justify-content-between">
+						<div>
+							<p class="d-inline">Show</p>
+							<select class="form-select form-select-sm numberRecod d-inline">
+						    	<option th:if="${keyWord == null}" th:text="${pages.size}" th:value="@{/vaccine-manager/list/(size=${pages.size})}" selected></option>
+						    	<option th:unless="${keyWord == null}" th:text="${pages.size}" th:value="@{/vaccine-manager/search/(keyWord=${keyWord}, size=${pages.size})}" selected></option>
+								<option th:if="${keyWord == null}" th:each="numberElement : ${#numbers.sequence(1, 5)}"
+										th:value="@{/vaccine-manager/list/(size=${numberElement})}" th:text="${numberElement}">
+						
+						  		</option>
+						  		<option th:unless="${keyWord == null}" th:each="numberElement : ${#numbers.sequence(1, 5)}"
+										th:value="@{/vaccine-manager/search/(keyWord=${keyWord}, size=${numberElement})}" th:text="${numberElement}">
+						
+						  		</option>
+								  
+								  
+								  
+							</select>
+							<p class="d-inline">entries</p>
+						</div>
+
+						<div class="d-flex flex-row-reverse">
+							<nav class="navbar navbar-default navbar-inverse">
+								<form class="navbar-form navbar-right" role="search"
+									th:action="@{/vaccine-manager/search}" method="GET">
+									<div class="d-flex justify-content-end">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Search"
+												th:name="keyWord" th:value=${keyWord}>
+										</div>
+										<div>
+											<button type="submit" class="btn btn-outline-primary">
+												<i style="color: black;"
+													class="fa-solid fa-magnifying-glass"></i>
+											</button>
+										</div>
+									</div>
+
+								</form>
+							</nav>
+						</div>
+
+
+					</div>
+
+					<div class="list mx-3">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th scope="col"><div class="form-check">
+											<input class="form-check-input" type="checkbox" value=""
+												id="select-all">
+										</div></th>
+									<th scope="col">Vaccine id</th>
+									<th scope="col">Vaccine name</th>
+									<th scope="col">Vaccine type</th>
+									<th scope="col">Number of Ijection</th>
+									<th scope="col">Origin</th>
+									<th scope="col">Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="vaccine : ${pages}">
+									<td><div class="form-check">
+											<input class="form-check-input" type="checkbox" th:value="${vaccine.vaccineId}">
+										</div></td>
+									
+									
+									<td><a th:href="@{/vaccine-manager/update/(id=${vaccine.vaccineId})}" th:text="${vaccine.vaccineId}"></a></td>
+									<td th:text="${vaccine.vaccineName}"></td>
+									<td th:text="${vaccine.vaccineType.vaccineTypeName}"></td>
+									<td th:text="${vaccine.numberOfInjecttion}"></td>
+									<td th:text="${vaccine.origin}"></td>
+									<td th:if="${vaccine.status == true}" th:text="Active"></td>
+									<td th:unless="${vaccine.status == true}" th:text="In-Active"></td>
+									
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="d-flex justify-content-end">
+						<ul class="pagination">
+					        <th:block th:each="pageNumber : ${body}">
+					            <li th:if="${pageNumberStat.first}" class="page-item">
+					            
+					                <a th:if="${pages.number > 0 && keyWord == null}"
+					                	 class="page-link" th:href="@{/vaccine-manager/list/(page=${pages.number}, size=${pages.size})}" aria-label="Previous">
+					                    <span aria-hidden="true">&laquo;</span>
+					                </a>
+					                <a th:if="${pages.number > 0 && keyWord != null}"
+					                	 class="page-link" th:href="@{/vaccine-manager/search/(keyWord=${keyWord}, page=${pages.number}, size=${pages.size})}" aria-label="Previous">
+					                    <span aria-hidden="true">&laquo;</span>
+					                </a>
+					                
+					                <a th:unless="${pages.number > 0}"
+					                	 class="page-link disabled"  aria-label="Previous">
+					                    <span aria-hidden="true">&laquo;</span>
+					                </a>
+					            </li>
+					            <li class="page-item active" th:if="${pageNumber} == ${pages.getNumber()+1}">
+					                <a class="page-link" th:text="${pageNumber}" href="#"></a>
+					            </li>
+					            <li class="page-item disabled" th:if="${pageNumber} == -1">
+					                <a class="page-link" href="#">...</a>
+					            </li>
+					            <li class="page-item" th:if="${pageNumber} != -1 and ${pageNumber} != ${pages.getNumber()+1}">
+					                <a  th:if="${keyWord == null}" class="page-link" th:text="${pageNumber}" th:href="@{/vaccine-manager/list/(page=${pageNumber}, size=${pages.size})}"></a>
+					                <a  th:unless="${keyWord == null}" class="page-link" th:text="${pageNumber}" th:href="@{/vaccine-manager/search/(keyWord=${keyWord}, page=${pageNumber}, size=${pages.size})}" ></a>
+					            </li>
+					            <li th:if="${pageNumberStat.last}" class="page-item"  aria-label="Next">
+					            
+					                <a th:if="${pages.number < pages.totalPages - 1 && keyWord == null}"
+					                 class="page-link" th:href="@{/vaccine-manager/list/(page=${pages.getNumber() + 2}, size=${pages.size})}">
+					                    <span aria-hidden="true">&raquo;</span>
+					                </a>
+					                
+					                <a th:if="${pages.number < pages.totalPages - 1 && keyWord != null}"
+					                 class="page-link" th:href="@{/vaccine-manager/search/(keyWord=${keyWord}, page=${pages.getNumber() + 2}, size=${pages.size})}">
+					                    <span aria-hidden="true">&raquo;</span>
+					                </a>
+					                
+					            
+					                <a th:unless="${pages.number < pages.totalPages - 1}"
+					                 class="page-link disabled">
+					                    <span aria-hidden="true">&raquo;</span>
+					                </a>
+					            </li>
+					        </th:block>
+    					</ul>
+
+					</div>
+					<p th:if = "${pages.totalPages > 0}"
+                        th:text="Showing +' '+${(pages.number + 1)*(pages.size) - (pages.size)+1} +' '+ to +' '+ ${(pages.number + 1)*(pages.size) - (pages.size)+1 + pages.numberOfElements -1}
+                        +' '+ of +' '+ ${pages.totalElements} +' '+ entries"></p>
+
+
+					<div>
+						<a th:href="@{/vaccine-manager/new}"><button type="button"
+								class="btn btn-primary">New Vaccine</button>
+						</a>
+						<button type="button" class="btn btn-primary update-Vaccine" value = "vaccine-manager">Update
+							Vaccine</button>
+						<button type="button" class="btn btn-primary make-inactive" value = "vaccine-manager">Make
+							Inactive</button>
+						<a th:href="@{/vaccine-manager/import}"><button type="button"
+								class="btn btn-primary">Import</button>
+						</a>
+							
+						
+					</div>
+
+
+				</div>
+			</div>
+
+</body>
+
+</html>

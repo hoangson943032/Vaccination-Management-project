@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+				layout:decorate="~{mainLayout.html}">
+
+<head>
+
+</head>
+
+<body>
+
+	
+			<div class="content" layout:fragment="content">
+				<div class="title">
+					<h1>WELCOME TO VACCINE MANAGEMENT SYSTEM</h1>
+				</div>
+				<div class="white-bar">
+					<div class="d-flex justify-content-between">
+						<div>
+							<p class="d-inline">Show</p>
+							<select class="form-select form-select-sm numberRecod d-inline">
+						    	<option th:if="${keyWord == null}" th:text="${pages.size}" th:value="@{/employee/list/(size=${pages.size})}" selected></option>
+						    	<option th:unless="${keyWord == null}" th:text="${pages.size}" th:value="@{/employee/search/(keyWord=${keyWord}, size=${pages.size})}" selected></option>
+								<option th:if="${keyWord == null}" th:each="numberElement : ${#numbers.sequence(1, 5)}"
+										th:value="@{/employee/list/(size=${numberElement})}" th:text="${numberElement}">
+						
+						  		</option>
+						  		<option th:unless="${keyWord == null}" th:each="numberElement : ${#numbers.sequence(1, 5)}"
+										th:value="@{/employee/search/(keyWord=${keyWord}, size=${numberElement})}" th:text="${numberElement}">
+						
+						  		</option>
+								  
+								  
+								  
+							</select>
+							<p class="d-inline">entries</p>
+						</div>
+
+						<div class="d-flex flex-row-reverse">
+							<nav class="navbar navbar-default navbar-inverse">
+								<form class="navbar-form navbar-right" role="search"
+									th:action="@{/employee/search}" method="GET">
+									<div class="d-flex justify-content-end">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Search"
+												th:name="keyWord" th:value=${keyWord}>
+										</div>
+										<div>
+											<button type="submit" class="btn btn-outline-primary">
+												<i style="color: black;"
+													class="fa-solid fa-magnifying-glass"></i>
+											</button>
+										</div>
+									</div>
+
+								</form>
+							</nav>
+						</div>
+
+
+					</div>
+
+					<div class="list mx-3">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th scope="col"><div class="form-check">
+											<input class="form-check-input" type="checkbox" value=""
+												id="select-all">
+										</div></th>
+									<th scope="col">Employee ID</th>
+									<th scope="col">Employee name</th>
+									<th scope="col">Date of birth</th>
+									<th scope="col">Gender</th>
+									<th scope="col">Phone</th>
+									<th scope="col">Address</th>
+									<th scope="col">Image</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="employee : ${pages}">
+									<td><div class="form-check">
+											<input class="form-check-input" type="checkbox" th:value="${employee.employeeId}">
+										</div></td>
+									
+									
+									<td><a th:href="@{/employee/update/(id=${employee.employeeId})}" th:text="${employee.employeeId}"></a></td>
+									<td th:text="${employee.name}"></td>
+									<td th:text="${employee.dateOfBirth}"></td>
+									<td th:if="${employee.gender == 1}" th:text="Male"></td>
+									<td th:if="${employee.gender == 0}" th:text="FeMale"></td>
+									<td th:text="${employee.phone}"></td>
+									<td th:text="${employee.address}"></td>
+									<td align="center"><img th:src="@{${employee.photosImagePath}}" border=3 height=100 width=100 /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="d-flex justify-content-end">
+						<ul class="pagination">
+					        <th:block th:each="pageNumber : ${body}">
+					            <li th:if="${pageNumberStat.first}" class="page-item">
+					            
+					                <a th:if="${pages.number > 0 && keyWord == null}"
+					                	 class="page-link" th:href="@{/employee/list/(page=${pages.number}, size=${pages.size})}" aria-label="Previous">
+					                    <span aria-hidden="true">&laquo;</span>
+					                </a>
+					                <a th:if="${pages.number > 0 && keyWord != null}"
+					                	 class="page-link" th:href="@{/employee/search/(keyWord=${keyWord}, page=${pages.number}, size=${pages.size})}" aria-label="Previous">
+					                    <span aria-hidden="true">&laquo;</span>
+					                </a>
+					                
+					                <a th:unless="${pages.number > 0}"
+					                	 class="page-link disabled"  aria-label="Previous">
+					                    <span aria-hidden="true">&laquo;</span>
+					                </a>
+					            </li>
+					            <li class="page-item active" th:if="${pageNumber} == ${pages.getNumber()+1}">
+					                <a class="page-link" th:text="${pageNumber}" href="#"></a>
+					            </li>
+					            <li class="page-item disabled" th:if="${pageNumber} == -1">
+					                <a class="page-link" href="#">...</a>
+					            </li>
+					            <li class="page-item" th:if="${pageNumber} != -1 and ${pageNumber} != ${pages.getNumber()+1}">
+					                <a  th:if="${keyWord == null}" class="page-link" th:text="${pageNumber}" th:href="@{/employee/list/(page=${pageNumber}, size=${pages.size})}"></a>
+					                <a  th:unless="${keyWord == null}" class="page-link" th:text="${pageNumber}" th:href="@{/employee/search/(keyWord=${keyWord}, page=${pageNumber}, size=${pages.size})}" ></a>
+					            </li>
+					            <li th:if="${pageNumberStat.last}" class="page-item"  aria-label="Next">
+					            
+					                <a th:if="${pages.number < pages.totalPages - 1 && keyWord == null}"
+					                 class="page-link" th:href="@{/employee/list/(page=${pages.getNumber() + 2}, size=${pages.size})}">
+					                    <span aria-hidden="true">&raquo;</span>
+					                </a>
+					                
+					                <a th:if="${pages.number < pages.totalPages - 1 && keyWord != null}"
+					                 class="page-link" th:href="@{/employee/search/(keyWord=${keyWord}, page=${pages.getNumber() + 2}, size=${pages.size})}">
+					                    <span aria-hidden="true">&raquo;</span>
+					                </a>
+					                
+					            
+					                <a th:unless="${pages.number < pages.totalPages - 1}"
+					                 class="page-link disabled">
+					                    <span aria-hidden="true">&raquo;</span>
+					                </a>
+					            </li>
+					        </th:block>
+    					</ul>
+
+					</div>
+					<p th:if = "${pages.totalPages > 0}"
+                        th:text="Showing +' '+${(pages.number + 1)*(pages.size) - (pages.size)+1} +' '+ to +' '+ ${(pages.number + 1)*(pages.size) - (pages.size)+1 + pages.numberOfElements -1}
+                        +' '+ of +' '+ ${pages.totalElements} +' '+ entries"></p>
+
+
+					<div>
+						<a th:href="@{/employee/new}"><button type="button"
+								class="btn btn-primary">New Employee</button>
+						</a>
+						<button type="button" class="btn btn-primary update-Vaccine" value = "employee">Update
+							Employee</button>
+						<button type="button" class="btn btn-primary delete" value = "employee">Delete Employee</button>
+						
+							
+						
+					</div>
+
+
+				</div>
+			</div>
+
+</body>
+
+</html>

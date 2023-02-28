@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+	</head>
+	<body>
+		<div th:fragment="alertMessage">
+			<div class="toast-container position-fixed top-0 end-0 p-3">
+			  	<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+				    <div th:if="${success}" th:text="${success}" class="toast-body text-bg-primary">
+				    </div>
+				    <div  th:if="${error}" th:text="${error}" class="toast-body text-bg-danger">
+				    </div>
+		 		</div>
+			</div>
+		</div>
+		
+	</body>
+</html>
+
+
+

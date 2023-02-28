@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+				layout:decorate="~{mainLayout.html}">
+<head>
+   
+</head>
+
+<body>
+
+   
+            <div class="content" layout:fragment="content">
+                <div class="title">
+                    <h1>WELCOME TO VACCINE MANAGEMENT SYSTEM</h1>
+                </div>
+                <div class="white-bar">
+                    <div>
+                        <form th:action="@{/employee/new}" th:object="${employeeDto}" method="POST" enctype="multipart/form-data">
+                            <div class="row my-3">
+                                <div class="form-group col-md-4">
+                                      <label for="employeeId">Employee ID:</label>
+                                      <input th:field="*{employeeId}" type="text" class="form-control" id="employeeId">
+                                      <p th:if="${#fields.hasErrors('employeeId')}" th:errorclass="error" th:errors="*{employeeId}" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                      <label for="vaccineName">Employee name:</label>
+                                      <input th:field="*{name}" type="text" class="form-control" id="name">
+                                      <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                      <label for="vaccineName">Gender:</label>
+                                      <div class="form-control" >
+                                      	<div class="form-check form-check-inline">
+										  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" th:field="*{gender}" th:value="1">
+										  <label class="form-check-label" for="inlineRadio1">Male</label>
+									   </div>
+										<div class="form-check form-check-inline">
+										  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" th:field="*{gender}" th:value="0">
+										  <label class="form-check-label" for="inlineRadio2">FeMale</label>
+										</div>
+                                      </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="row my-3">
+                            	<div class="form-group col-md-4">
+                                      <label for="dateOfBirth">Date of birth:</label>
+                                      <input th:field="*{dateOfBirth}" type="date" class="form-control" id="dateOfBirth">
+                                      <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errorclass="error" th:errors="*{dateOfBirth}" />
+                                </div>
+                                
+                                 <div class="form-group col-md-4">
+                                      <label for="phone">Phone:</label>
+                                      <input th:field="*{phone}" type="text" class="form-control" id="phone">
+                                      <p th:if="${#fields.hasErrors('phone')}" th:errorclass="error" th:errors="*{phone}" />
+                                </div>
+                                
+                                 <div class="form-group col-md-4">
+                                      <label for="address">Address:</label>
+                                      <input th:field="*{address}" type="text" class="form-control" id="address">
+                                      <p th:if="${#fields.hasErrors('address')}" th:errorclass="error" th:errors="*{address}" />
+                                </div>
+                            	
+                            </div>
+                            
+                             <div class="row my-3">
+                            	<div class="form-group col-md-4">
+                                      <label for="email">Email:</label>
+                                      <input th:field="*{email}" type="email" class="form-control" id="email">
+                                      <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" />
+                                </div>
+                                
+                                 <div class="form-group col-md-4">
+                                      <label for="workingPlace">Working place:</label>
+                                      <input th:field="*{workingPlace}" type="text" class="form-control" id="workingPlace">
+                                      <p th:if="${#fields.hasErrors('workingPlace')}" th:errorclass="error" th:errors="*{workingPlace}" />
+                                </div>
+                                
+                                 <div class="form-group col-md-4">
+                                      <label for="position">Postion:</label>
+                                      <input th:field="*{position}" type="text" class="form-control" id="position">
+                                      <p th:if="${#fields.hasErrors('position')}" th:errorclass="error" th:errors="*{position}" />
+                                </div>
+                            	
+                            </div>
+                            
+                             <div class="row my-3">
+                             	<div class="form-group col-md-4">
+                                      <label for="image">Image:</label>
+                                      <input name="image" type="file" class="form-control" id="image" accept="image/png, image/jpeg">
+                                      
+                                </div>
+                             </div>
+                           
+                           
+                            
+                            
+                            
+                            
+                            <div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <a th:href="@{/employee/new}"><button type="button" class="btn btn-primary">Reset</button></a>
+                                <a th:href="@{/employee/list}"><button type="button" class="btn btn-primary">Cancel</button></a>
+                            </div>
+                            
+                        
+                            
+                        </form>
+                    </div>
+                        
+    
+                </div>
+            </div>
+</body>
+
+</html>

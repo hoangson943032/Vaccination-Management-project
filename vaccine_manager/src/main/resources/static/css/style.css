@@ -1,0 +1,39 @@
+.container-fluid {  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 50px 100%;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "header"
+    "content";
+  width: 100%;
+}
+
+.header { grid-area: header; }
+
+.content {  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "sidebar page";
+  grid-area: content;
+}
+
+.sidebar { grid-area: sidebar; }
+
+.page { grid-area: page; }
+
+
+
+.selected {
+    background-color: brown;
+    color: #FFF;
+}
+
+tbody tr:hover {
+  background-color: aquamarine;
+}
+
+
